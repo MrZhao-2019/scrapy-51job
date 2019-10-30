@@ -13,6 +13,7 @@ class QianchengPipeline(object):
 
     def process_item(self, item, spider):
         print('开始存储信息，=========================', )
+        # dict()创建一个新的字典，接受item的值。
         content = json.dumps(dict(item), ensure_ascii=False) + '\n'
         self.file.write(content)
         return item
