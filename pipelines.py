@@ -7,17 +7,12 @@
 import json
 
 class QianchengPipeline(object):
+
+    def __init__(self):
+        self.file = open('qiancheng.json', 'w', encoding='utf-8')
+
     def process_item(self, item, spider):
         print('开始存储信息，=========================', )
-        json_file = item
-        # json_str = json.dumps()
-        with open('test_data.txt', 'w') as json_file:
-            json_file.writelines(json.dumps(json_file) +'\n')
-
-        # with open('qiancheng.txt', 'w') as f:
-        #     # dump方法页面上的字典或类json格式的转换成json格式的字符串
-        #     # json.dump(item, f)
-        #     # ensure_ascii = False(输出中文)， indent = 4(缩进为4)
-        #
-        #     f.write(json_str)
+        content = json.dumps(dict(item), ensure_ascii=False) + '\n'
+        self.file.write(content)
         return item
