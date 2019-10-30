@@ -24,9 +24,11 @@ class QianchengSpider(scrapy.Spider):
             items_list['salary'] = item.xpath('./span[@class="t4"]/text()').extract_first()
             items_list['create_time'] = item.xpath('./span[@class="t5"]/text()').extract_first().strip()
             items_list['work_name'] = item.xpath('./p/span/a/text()').extract_first().strip()
+
             pachong = '爬虫'
             if pachong in items_list['work_name']:  # 如果标题中没有爬虫字段就跳过抓取。
                 detail_url = item.xpath('./p/span/a/@href').extract_first().strip()
+                items_list['URL_51'] = detail_url
                 if not detail_url:  # 意思是如果detail_url不存在就。。。
                     continue  # continue跳过的意思
                 yield scrapy.Request(url=detail_url, callback=self.parse_content, meta={'items_list': items_list})
@@ -47,12 +49,11 @@ class QianchengSpider(scrapy.Spider):
         items['experience'] = xperience.replace('\xa0', "")
         # 待遇
         items['salary_package'] = ','.join(response.xpath('//span[@class="sp4"]/text()').extract())
-
         items['work_name'] = items_list['work_name']
         items['company'] = items_list['company']
         items['work_addr'] = items_list['work_addr']
         items['salary'] = items_list['salary']
         items['create_time'] = items_list['create_time']
         items['work_name'] = items_list['work_name']
-
+        items['URL_51'] = items_list['URL_51']
         yield items
