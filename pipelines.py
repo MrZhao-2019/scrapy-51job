@@ -8,12 +8,21 @@ import json
 
 class QianchengPipeline(object):
 
-    def __init__(self):
+    # def __init__(self):
+    #     self.file = open('qiancheng.json', 'w', encoding='utf-8')
+
+
+    def open_spier(self, spider):  # 当爬虫启动时调用的方法
         self.file = open('qiancheng.json', 'w', encoding='utf-8')
 
     def process_item(self, item, spider):
         print('开始存储信息，=========================', )
-        # dict()创建一个新的字典，接受item的值。
+        # dict()用于创建空的字典，接受item的值。
         content = json.dumps(dict(item), ensure_ascii=False) + '\n'
         self.file.write(content)
         return item
+
+    def close_spier(self, spider):  # 当爬虫关闭时调用的方法
+        self.file.close()  # 关闭文件
+
+        
