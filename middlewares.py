@@ -104,19 +104,3 @@ class QianchengDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
-
-
-# class RedisMiddleware(object):
-#     '''
-#     对每一个url，进行保存去重
-#     '''
-#     def __init__(self):
-#         self.r = redis.StrictRedis(host='lovalhost', port=6379, db=1)
-#
-#     def process_request(self, request, spider):
-#         if request.url != 'https://search.51job.com/list/020000,000000,0000,00,9,99,python,2,1.html':
-#             url_md5 = hashlib.md5(request.url.encode()).hexdigest()
-#             result = self.r.sadd('qc_url', url_md5)
-#
-#             if result == False:
-#                 raise IgnoreRequest
