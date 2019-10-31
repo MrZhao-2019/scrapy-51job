@@ -12,7 +12,7 @@ class QianchengPipeline(object):
     #     self.file = open('qiancheng.json', 'w', encoding='utf-8')
 
 
-    def open_spier(self, spider):  # 当爬虫启动时调用的方法
+    def open_spider(self, spider):  # 当爬虫启动时调用的方法
         self.file = open('qiancheng.json', 'w', encoding='utf-8')
 
     def process_item(self, item, spider):
@@ -22,7 +22,7 @@ class QianchengPipeline(object):
         self.file.write(content)
         return item
 
-    def close_spier(self, spider):  # 当爬虫关闭时调用的方法
+    def close_spider(self, spider):  # 当爬虫关闭时调用的方法
         self.file.close()  # 关闭文件
 
         
