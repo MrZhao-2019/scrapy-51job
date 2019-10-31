@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import scrapy
-# from scrapy_redis.spiders import RedisSpider
+from scrapy_redis.spiders import RedisSpider
 from ..items import QianchengItem
 
-class QianchengSpider(scrapy.Spider):
+class QianchengSpider(RedisSpider):
     name = 'qiancheng'
     allowed_domains = ['51job.com']
-    # redis_key = 'qiancheng:start_urls'
-    start_urls = ['https://search.51job.com/list/020000,000000,0000,00,9,99,python,2,1.html']
+    redis_key = 'qiancheng:start_urls'
+    # start_urls = ['https://search.51job.com/list/020000,000000,0000,00,9,99,python,2,1.html']
 
     def parse(self, response):
         result = response.xpath('//div[@class="dw_table"]/div[@class="el"]')
@@ -32,6 +32,7 @@ class QianchengSpider(scrapy.Spider):
                 if not detail_url:  # 意思是如果detail_url不存在就。。。
                     continue  # continue跳过的意思
                 yield scrapy.Request(url=detail_url, callback=self.parse_content, meta={'items_list': items_list})
+
         next_url = response.xpath('//li[@class="bk"][2]/a/@href').extract()[0]  # 获取下一页内容的url
         yield scrapy.Request(url=next_url, callback=self.parse)
 

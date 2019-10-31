@@ -54,7 +54,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    'Qiancheng.middlewares.QianchengDownloaderMiddleware': 543,
+#    'Qiancheng.middlewares.RedisMiddleware': 543,
 # }
 
 # Enable or disable extensions
@@ -67,7 +67,7 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'Qiancheng.pipelines.QianchengPipeline': 300,
-    # 'scrapy_redis.pipelines.RedisPipline': 400,
+    # 'scrapy_redis.pipelines.RedisPipline': 400,  # 这个是直接把数据保存到了redis
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,17 +91,17 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# # 指定scrapy-redis的scheduler
-# SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
-#
-# # 在redis中保持scrapy-redis用到的队列
-# SCHEDULER_PERSIST = True
-#
-# # 去重
-# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-#
-# # redis 链接信息
-# REDIS_HOST = 'localhost'
-# REDIS_PORT = 6379
+# 1.指定scrapy-redis的scheduler
+SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
+
+# 2.在redis中保持scrapy-redis用到的队列
+SCHEDULER_PERSIST = True
+
+# 3.去重
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+# 4.redis 链接信息
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
 
 

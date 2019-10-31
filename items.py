@@ -31,3 +31,5 @@ class QianchengItem(scrapy.Item):
     experience = scrapy.Field()
     # 待遇
     salary_package = scrapy.Field()
+    # 网址
+    URL_51 = scrapy.Field()

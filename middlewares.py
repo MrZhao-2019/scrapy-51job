@@ -6,7 +6,7 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-# import redis
+import redis
 import hashlib
 from scrapy.exceptions import IgnoreRequest  # 抛出异常
 
@@ -105,7 +105,7 @@ class QianchengDownloaderMiddleware(object):
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
 
-
+#
 # class RedisMiddleware(object):
 #     '''
 #     对每一个url，进行保存去重
