@@ -22,7 +22,7 @@ NEWSPIDER_MODULE = 'Qiancheng.spiders'
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 3  # 并发数量
+CONCURRENT_REQUESTS = 3  # 并发数
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -47,15 +47,15 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    'Qiancheng.middlewares.RedisMiddleware': 543,
-# }
+#SPIDER_MIDDLEWARES = {
+#    'Qiancheng.middlewares.QianchengSpiderMiddleware': 543,
+#}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'Qiancheng.middlewares.QianchengDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+   'Qiancheng.middlewares.RedisMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -66,8 +66,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'Qiancheng.pipelines.QianchengPipeline': 300,
-    # 'scrapy_redis.pipelines.RedisPipline': 400,
+   'Qiancheng.pipelines.QianchengPipeline': 300,  # 数据出来管道
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,18 +89,3 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-# # 指定scrapy-redis的scheduler
-# SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
-#
-# # 在redis中保持scrapy-redis用到的队列
-# SCHEDULER_PERSIST = True
-#
-# # 去重
-# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-#
-# # redis 链接信息
-# REDIS_HOST = 'localhost'
-# REDIS_PORT = 6379
-
-

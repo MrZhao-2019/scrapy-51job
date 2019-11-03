@@ -6,10 +6,9 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-# import redis
+import redis
 import hashlib
-from scrapy.exceptions import IgnoreRequest  # 抛出异常
-
+from scrapy.exceptions import IgnoreRequest    # scrapy中的异常出理
 
 class QianchengSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -104,3 +103,25 @@ class QianchengDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class RedisMiddleware(object):
+    '''
+    对每一个url，进行保存去重
+    '''
+    def __init__(self):
+        self.r = redis.StrictRedis(host='localhost', port=6379, db=1)  # 存放在第一个数据库中，在redis中用SELECT 1  进入数据库1.
+
+    def process_request(self, request, spider):
+        if request.url != 'https://search.51job.com/list/000000,000000,0000,00,9,99,python,2,1.html':
+            url_md5 = hashlib.md5(request.url.encode()).hexdigest()  # encode()把数据转换成daty数据
+            result = self.r.sadd('qc_url', url_md5)  # 数据库中一般存二进制数据
+
+            if result == False:
+                print('已爬取的url')
+                raise IgnoreRequest   # 抛出异常后requests就不会继续请求了
+
+            # 开启中间件
+
+
+

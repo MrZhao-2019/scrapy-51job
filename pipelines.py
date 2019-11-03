@@ -8,10 +8,6 @@ import json
 
 class QianchengPipeline(object):
 
-    # def __init__(self):
-    #     self.file = open('qiancheng.json', 'w', encoding='utf-8')
-
-
     def open_spider(self, spider):  # 当爬虫启动时调用的方法
         self.file = open('qiancheng.json', 'w', encoding='utf-8')
 
@@ -24,5 +20,4 @@ class QianchengPipeline(object):
 
     def close_spider(self, spider):  # 当爬虫关闭时调用的方法
         self.file.close()  # 关闭文件
-
-        
+        return item

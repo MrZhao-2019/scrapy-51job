@@ -25,9 +25,11 @@ class QianchengItem(scrapy.Item):
     utc_time = scrapy.Field()
     # 详情页内容
     content = scrapy.Field()
-    # 职能类别
-    function_job = scrapy.Field()
-    # 经验
-    experience = scrapy.Field()
-    # 待遇
-    salary_package = scrapy.Field()
+    # # 职能类别
+    # function_job = scrapy.Field()
+    # # 经验
+    # experience = scrapy.Field()
+    # # 待遇
+    # salary_package = scrapy.Field()
+    # # 网址
+    # URL_51 = scrapy.Field()
